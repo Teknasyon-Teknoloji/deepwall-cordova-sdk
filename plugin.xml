@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-deepwall"
+        version="1.0.0"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Deepwall</name>
+    <dependency id="cordova-plugin-add-swift-support" version="2.0.2" />
+    <js-module name="DeepwallCordovaPlugin" src="www/DeepwallCordovaPlugin.js">
+        <clobbers target="cordova.DeepwallCordovaPlugin" />
+    </js-module>
+    <js-module name="DeepwallException" src="www/enums/DeepwallException.js">
+        <clobbers target="DeepwallException" />
+    </js-module>
+    <js-module name="Environments" src="www/enums/Environments.js">
+        <clobbers target="Environments" />
+    </js-module>
+    <js-module name="EnvironmentStyles" src="www/enums/EnvironmentStyles.js">
+        <clobbers target="EnvironmentStyles" />
+    </js-module>
+    <js-module name="ErrorCodes" src="www/enums/ErrorCodes.js">
+        <clobbers target="ErrorCodes" />
+    </js-module>
+    <js-module name="ProrationTypes" src="www/enums/ProrationTypes.js">
+        <clobbers target="ProrationTypes" />
+    </js-module>
+    <js-module name="PurchaseUpgradePolicy" src="www/enums/PurchaseUpgradePolicy.js">
+        <clobbers target="PurchaseUpgradePolicy" />
+    </js-module>
+    <js-module name="ValidateReceiptTypes" src="www/enums/ValidateReceiptTypes.js">
+        <clobbers target="ValidateReceiptTypes" />
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="DeepwallCordovaPlugin">
+                <param name="android-package" value="deepwallcordova.DeepwallCordovaPlugin" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml" />
+        <source-file src="src/android/DeepwallCordovaPlugin.java" target-dir="src/deepwallcordova/DeepwallCordovaPlugin" />
+        <framework custom="true" src="src/android/plugin.gradle" type="gradleReference" />
+        <framework src="org.greenrobot:eventbus:3.2.0" />
+    </platform>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="DeepwallCordovaPlugin">
+                <param name="ios-package" value="DeepwallCordovaPlugin" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/bridging-header.h" />
+        <source-file src="src/ios/DeepwallCordovaPlugin.swift" />
+        <podspec>
+            <pods use-frameworks="true">
+                <pod name="DeepWall"/>
+            </pods>
+        </podspec>
+    </platform>
+</plugin>

@@ -1,0 +1,7 @@
+*.pbxproj -text
+/.github export-ignore
+/example export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/CHANGELOG.md export-ignore

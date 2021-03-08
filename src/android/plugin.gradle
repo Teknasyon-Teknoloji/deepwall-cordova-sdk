@@ -1,0 +1,9 @@
+repositories {
+    google()
+    jcenter()
+    maven { url 'https://raw.githubusercontent.com/Teknasyon-Teknoloji/deepwall-android-sdk/master/' }
+}
+
+dependencies {
+    implementation 'deepwall:deepwall-core:2.2.0'
+}
