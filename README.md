@@ -9,7 +9,7 @@
 
 ## Getting started
 
-`$ cordova plugin add https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk.git#1.0.0`
+`$ cordova plugin add cordova-plugin-deepwall`
 
 * After adding plugin in the dependency section, 
   add `AndroidXEnabled` as `true` in the `config.xml` of your application.
