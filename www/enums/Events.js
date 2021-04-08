@@ -14,5 +14,10 @@ exports.PAYWALL_PURCHASE_SUCCESS= 'deepWallPaywallPurchaseSuccess';
 exports.PAYWALL_PURCHASE_FAILED= 'deepWallPaywallPurchaseFailed';
 exports.PAYWALL_RESTORE_SUCCESS= 'deepWallPaywallRestoreSuccess';
 exports.PAYWALL_RESTORE_FAILED= 'deepWallPaywallRestoreFailed';
+
+// android ONLY
 exports.PAYWALL_CONSUME_SUCCESS= 'deepWallPaywallConsumeSuccess';
 exports.PAYWALL_CONSUME_FAILURE= 'deepWallPaywallConsumeFailure';
+
+// iOS ONLY events
+exports.ATT_STATUS_CHANGED= 'deepWallATTStatusChanged';

@@ -34,7 +34,7 @@
 ### 1. Initialize DeepWall SDK
 - On application start you need to initialize sdk with api key and environment.
 ```javascript
-cordova.DeepwallCordovaPlugin.initialize("API_KEY", Environments.PRODUCTION, function(response){
+cordova.DeepwallCordovaPlugin.initialize('{API_KEY}', Environments.PRODUCTION, function(response){
     console.log(response);
 }, function(error){
     console.log(error);
@@ -54,7 +54,7 @@ cordova.DeepwallCordovaPlugin.setUserProperties('UNIQUE_DEVICE_ID_HERE (UUID)','
 ### 3. request Paywall
 - After setting userProperties, you are ready for requesting paywall with an action name. You can find action name in DeepWall dashboard. You can send extra paramteres as well.
 ````javascript
-cordova.DeepwallCordovaPlugin.requestPaywall('AppLaunch',{}, function(response){
+cordova.DeepwallCordovaPlugin.requestPaywall('{ACTION_KEY}',{}, function(response){
     console.log(response);
 }, function(error){
     console.log(error);
@@ -90,6 +90,15 @@ cordova.DeepwallCordovaPlugin.observeEvents(function(response){
 }, function(error){
     console.log(error);
 })
+````
+
+### Requesting ATT Prompts
+````javascript
+cordova.DeepwallCordovaPlugin.requestAppTracking('{ACTION_KEY}',{}, function(response){
+    console.log(response);
+}, function(error){
+    console.log(error);
+});
 ````
 
 ## Notes
