@@ -50,7 +50,7 @@
         <source-file src="src/ios/DeepwallCordovaPlugin.swift" />
         <podspec>
             <pods use-frameworks="true">
-                <pod name="DeepWall" podspec="~> 2.2"/>
+                <pod name="DeepWall" spec="~> 2.2"/>
             </pods>
         </podspec>
     </platform>
