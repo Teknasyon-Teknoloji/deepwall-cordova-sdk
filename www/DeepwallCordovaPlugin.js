@@ -26,6 +26,14 @@ exports.requestPaywall = function(actionKey, extraData = {}, success, error){
     exec(success, error, PLUGIN, 'requestPaywall', [actionKey, JSON.stringify(extraData)]);
 };
 
+exports.requestAppTracking = function(actionKey, extraData = {}, success, error){
+  exec(success, error, PLUGIN, 'requestAppTracking', [actionKey, JSON.stringify(extraData)]);
+};
+
+exports.sendExtraDataToPaywall = function(extraData = {}, success, error){
+  exec(success, error, PLUGIN, 'sendExtraDataToPaywall', [JSON.stringify(extraData)]);
+};
+
 exports.updateUserProperties = function(country, language, environmentStyle = EnvironmentStyle.LIGHT, debugAdvertiseAttributions = null, success, error){
     exec(success, error, PLUGIN, 'updateUserProperties', [country, language, environmentStyle, debugAdvertiseAttributions]);
 };
