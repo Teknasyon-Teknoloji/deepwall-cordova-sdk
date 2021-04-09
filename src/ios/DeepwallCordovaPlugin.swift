@@ -84,6 +84,34 @@ import Foundation
         }
     }
 
+    @objc(requestAppTracking:)
+    func requestAppTracking(command : CDVInvokedUrlCommand)
+    {
+        guard #available(iOS 14.0, *) else {
+            return result("(requestAppTracking) method is only available in iOS 14 or newer")
+        }
+
+        guard let args = command.arguments else {
+            let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Could not recognize cordova arguments in method: (requestAppTracking)")
+            self.commandDelegate.send(result, callbackId: command.callbackId)
+            return ()
+        }
+        if let myArgs = args as? [Any]{
+            let actionKey = myArgs[0] as? String
+            let extra = myArgs[1] as? String
+            if let extraData = convertToDictionary(text: extra) {
+                DeepWall.shared.requestAppTracking(action: actionKey!, in: self.viewController, extraData: extraData)
+            }
+            else{
+                DeepWall.shared.requestAppTracking(action: actionKey!, in: self.viewController, extraData: [:])
+            }
+        } else {
+            let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "iOS could not extract " +
+                "cordova arguments in method: (requestAppTracking)")
+            self.commandDelegate.send(result, callbackId: command.callbackId)
+        }
+    }
+
     @objc(updateUserProperties:)
     func updateUserProperties(command : CDVInvokedUrlCommand)
     {
@@ -110,6 +138,31 @@ import Foundation
     func closePaywall(command : CDVInvokedUrlCommand)
     {
         DeepWall.shared.closePaywall()
+    }
+    
+    @objc(sendExtraDataToPaywall:)
+    func sendExtraDataToPaywall(command : CDVInvokedUrlCommand)
+    {
+        guard let args = command.arguments else {
+            let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Could not recognize cordova arguments in method: (sendExtraDataToPaywall)")
+            self.commandDelegate.send(result, callbackId: command.callbackId)
+            return ()
+        }
+        if let myArgs = args as? [Any] {
+            let extra = myArgs[0] as? String
+            if let extraData = convertToDictionary(text: extra) {
+                DeepWall.shared.sendExtraData(toPaywall: extraData)
+            }
+            else{
+                let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "iOS could not extract " +
+                "cordova arguments in method: (sendExtraDataToPaywall)")
+            self.commandDelegate.send(result, callbackId: command.callbackId)
+            }
+        } else {
+            let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "iOS could not extract " +
+                "cordova arguments in method: (sendExtraDataToPaywall)")
+            self.commandDelegate.send(result, callbackId: command.callbackId)
+        }
     }
 
     @objc(hidePaywallLoadingIndicator:)
@@ -318,6 +371,15 @@ import Foundation
         mapData["event"] = "deepWallPaywallExtraDataReceived"
         sendData(state: mapData)
     }
+
+    public func deepWallATTStatusChanged() {
+        print("event:deepWallATTStatusChanged");
+        var map = [String: Any]()
+        map["data"] =  ""
+        map["event"] = "deepWallATTStatusChanged"
+        sendData(state: map)
+    }
+
     
     func sendData(state: Dictionary<String,Any>) {
         print(state)
