@@ -125,6 +125,15 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
             callback.error("Expected non-empty string arguments.");
         }
     }
+
+    private void requestAppTracking(String actionKey, JSONObject extraData) throws JSONException {
+        // placeholder method !
+    }
+
+    private void sendExtraDataToPaywall(JSONObject extraData) throws JSONException {
+        // placeholder method !
+    }
+
     private kotlin.Unit error(String s){return null;}
     private void updateUserProperties(String country, String language, int environmentStyle, JSONObject debugAdvertiseAttributions){
         if (country != null && language != null) {
@@ -145,7 +154,7 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
         //DeepWall.hidePaywallLoadingIndicator();
         callback.success("Deepwall hidePaywallLoadingIndicator success");
     }
-    
+
     private void validateReceipt(int validationType){
         ValidationType validation;
         switch (validationType) {
@@ -157,7 +166,7 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
         DeepWall.INSTANCE.validateReceipt(validation);
         callback.success("Deepwall validateReceipt success");
     }
-    
+
     private void consumeProduct(String productId) {
         if (productId != null) {
             DeepWall.INSTANCE.consumeProduct(productId);
@@ -223,7 +232,7 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
          }
 
          public final void accept(EventModel it) throws Exception {
-            
+
             JSONObject map = new JSONObject();
             JSONObject modelData = new JSONObject();
             Object dataObject;
