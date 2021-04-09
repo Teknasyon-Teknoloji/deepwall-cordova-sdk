@@ -88,7 +88,9 @@ import Foundation
     func requestAppTracking(command : CDVInvokedUrlCommand)
     {
         guard #available(iOS 14.0, *) else {
-            return result("(requestAppTracking) method is only available in iOS 14 or newer")
+            let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "(requestAppTracking) method is only available in iOS 14 or newer")
+            self.commandDelegate.send(result, callbackId: command.callbackId)
+            return ()
         }
 
         guard let args = command.arguments else {
