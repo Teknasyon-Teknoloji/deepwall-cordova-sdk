@@ -31,7 +31,7 @@ exports.requestAppTracking = function(actionKey, extraData = {}, success, error)
 };
 
 exports.sendExtraDataToPaywall = function(extraData = {}, success, error){
-  exec(success, error, PLUGIN, 'requestAppTracking', [JSON.stringify(extraData)]);
+  exec(success, error, PLUGIN, 'sendExtraDataToPaywall', [JSON.stringify(extraData)]);
 };
 
 exports.updateUserProperties = function(country, language, environmentStyle = EnvironmentStyle.LIGHT, debugAdvertiseAttributions = null, success, error){
