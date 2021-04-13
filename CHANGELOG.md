@@ -2,7 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.1.0...main)
-
+### Added
+- Added missing examples to [readme](README.md) file.
+- Added .editorconfig file.
 
 ---
 
