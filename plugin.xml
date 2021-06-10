@@ -4,7 +4,6 @@
         xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Deepwall</name>
-    <dependency id="cordova-plugin-add-swift-support" version="2.0.2" />
     <js-module name="DeepwallCordovaPlugin" src="www/DeepwallCordovaPlugin.js">
         <clobbers target="cordova.DeepwallCordovaPlugin" />
     </js-module>
@@ -41,6 +40,7 @@
         <framework src="org.greenrobot:eventbus:3.2.0" />
     </platform>
     <platform name="ios">
+        <dependency id="cordova-plugin-add-swift-support" version="2.0.2" />
         <config-file parent="/*" target="config.xml">
             <feature name="DeepwallCordovaPlugin">
                 <param name="ios-package" value="DeepwallCordovaPlugin" />
