@@ -10,6 +10,9 @@
     <js-module name="DeepwallException" src="www/enums/DeepwallException.js">
         <clobbers target="DeepwallException" />
     </js-module>
+    <js-module name="Events" src="www/enums/Events.js">
+      <clobbers target="Events" />
+    </js-module>
     <js-module name="Environments" src="www/enums/Environments.js">
         <clobbers target="Environments" />
     </js-module>
