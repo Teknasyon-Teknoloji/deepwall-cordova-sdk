@@ -1,7 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.1.0...main)
+## [Unreleased](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.2.0...main)
+
+
+---
+
+
+## [1.2.0 (2021-06-20)](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.1.0...1.2.0)
 ### Added
 - Added missing examples to [readme](README.md) file.
 - Added .editorconfig file.
@@ -14,9 +20,8 @@ All notable changes to this project will be documented in this file.
 - On Android, kotlin version updated to 1.4.32.
 - On Android Make sure your gradle version is 3.6.4 or higher.
 
-
----
-
+### Fixed
+- Fixed events not firing error. (iOS, Android)
 
 ## [1.1.0 (2021-04-09)](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.0.2...1.1.0)
 ### Changed
