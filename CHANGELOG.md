@@ -6,6 +6,15 @@ All notable changes to this project will be documented in this file.
 - Added missing examples to [readme](README.md) file.
 - Added .editorconfig file.
 
+### Changed
+- On iOS, deepwall-core version upgraded to version 2.3.0.
+- On iOS, you can remove use_frameworks! from podfile.
+- On Android, deepwall-core version upgraded to version 2.3.0.
+- On Android, compileSdkVersion and targetSdkVersion set to 30.
+- On Android, kotlin version updated to 1.4.32.
+- On Android Make sure your gradle version is 3.6.4 or higher.
+
+
 ---
 
 

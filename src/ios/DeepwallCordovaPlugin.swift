@@ -25,6 +25,9 @@ import Foundation
                 deepWallEnvironment = .production
             }
             DeepWall.initialize(apiKey: apiKey!, environment: deepWallEnvironment)
+            let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall Initialize success")
+            result?.setKeepCallbackAs(true)
+            self.commandDelegate.send(result, callbackId: command.callbackId)
         } else {
             let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "iOS could not extract " +
                 "cordova arguments in method: (initialize)")
@@ -53,6 +56,9 @@ import Foundation
             let language = myArgs[2] as? String
             let properties = DeepWallUserProperties(uuid: uuid!, country: country!, language: language!)
             DeepWall.shared.setUserProperties(properties)
+            let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall setUserProperties success")
+            result?.setKeepCallbackAs(true)
+            self.commandDelegate.send(result, callbackId: command.callbackId)
         } else {
             let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "iOS could not extract " +
                 "cordova arguments in method: (setUserProperties)")
@@ -77,6 +83,9 @@ import Foundation
             else{
                 DeepWall.shared.requestPaywall(action: actionKey!, in: self.viewController, extraData: [:])
             }
+            let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall requestPaywall success")
+            result?.setKeepCallbackAs(true)
+            self.commandDelegate.send(result, callbackId: command.callbackId)
         } else {
             let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "iOS could not extract " +
                 "cordova arguments in method: (requestPaywall)")
@@ -107,6 +116,9 @@ import Foundation
             else{
                 DeepWall.shared.requestAppTracking(action: actionKey!, in: self.viewController, extraData: [:])
             }
+            let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall requestAppTracking success")
+            result?.setKeepCallbackAs(true)
+            self.commandDelegate.send(result, callbackId: command.callbackId)
         } else {
             let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "iOS could not extract " +
                 "cordova arguments in method: (requestAppTracking)")
@@ -129,6 +141,9 @@ import Foundation
             let debugAdvertiseAttributions = myArgs[3]
             let theme: DeepWallEnvironmentStyle = (environmentStyle == 0) ? .light : .dark
             DeepWall.shared.updateUserProperties(country:country, language:language, environmentStyle:theme,debugAdvertiseAttributions:debugAdvertiseAttributions as? [String : String])
+            let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall updateUserProperties success")
+            result?.setKeepCallbackAs(true)
+            self.commandDelegate.send(result, callbackId: command.callbackId)
         } else {
             let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "iOS could not extract " +
                 "cordova arguments in method: (updateUserProperties)")
@@ -140,8 +155,11 @@ import Foundation
     func closePaywall(command : CDVInvokedUrlCommand)
     {
         DeepWall.shared.closePaywall()
+        let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall closePaywall success")
+        result?.setKeepCallbackAs(true)
+        self.commandDelegate.send(result, callbackId: command.callbackId)
     }
-    
+
     @objc(sendExtraDataToPaywall:)
     func sendExtraDataToPaywall(command : CDVInvokedUrlCommand)
     {
@@ -171,6 +189,9 @@ import Foundation
     func hidePaywallLoadingIndicator(command : CDVInvokedUrlCommand)
     {
         DeepWall.shared.hidePaywallLoadingIndicator()
+        let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall hidePaywallLoadingIndicator success")
+        result?.setKeepCallbackAs(true)
+        self.commandDelegate.send(result, callbackId: command.callbackId)
     }
 
     @objc(validateReceipt:)
@@ -191,6 +212,9 @@ import Foundation
                 default: validation = PloutosValidationType.purchase; break;
             }
             DeepWall.shared.validateReceipt(for: validation)
+            let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall validateReceipt success")
+            result?.setKeepCallbackAs(true)
+            self.commandDelegate.send(result, callbackId: command.callbackId)
         } else {
             let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "iOS could not extract " +
                 "cordova arguments in method: (validateReceipt)")
@@ -250,7 +274,7 @@ import Foundation
     }
 
     public func deepWallPaywallRequested() -> Void {
-        print("event:deepWallPaywallRequested");
+        //print("event:deepWallPaywallRequested");
         var mapData = [String: Any]()
         mapData["data"] =  ""
         mapData["event"] = "deepWallPaywallRequested"
@@ -258,7 +282,7 @@ import Foundation
     }
 
     public func deepWallPaywallResponseReceived() -> Void {
-        print("event:deepWallPaywallResponseReceived");
+        //print("event:deepWallPaywallResponseReceived");
         var mapData = [String: Any]()
         mapData["data"] =  ""
         mapData["event"] = "deepWallPaywallResponseReceived"
@@ -266,7 +290,7 @@ import Foundation
     }
 
     public func deepWallPaywallOpened(_ model: DeepWallPaywallOpenedInfoModel) -> Void {
-        print("event:deepWallPaywallOpened");
+        //print("event:deepWallPaywallOpened");
         var mapData = [String: Any]()
         var modelMap = [String: Any]()
         modelMap["pageId"] = model.pageId
@@ -276,7 +300,7 @@ import Foundation
     }
 
     public func deepWallPaywallNotOpened(_ model: DeepWallPaywallNotOpenedInfoModel) -> Void {
-        print("event:deepWallPaywallNotOpened");
+        //print("event:deepWallPaywallNotOpened");
         var mapData = [String: Any]()
         var modelMap = [String: Any]()
         modelMap["pageId"] = model.pageId
@@ -287,7 +311,7 @@ import Foundation
         sendData(state: mapData)
     }
     public func deepWallPaywallClosed(_ model: DeepWallPaywallClosedInfoModel) -> Void {
-        print("event:deepWallPaywallClosed");
+        //print("event:deepWallPaywallClosed");
         var mapData = [String: Any]()
         var modelMap = [String: Any]()
         modelMap["pageId"] = model.pageId
@@ -296,7 +320,7 @@ import Foundation
         sendData(state: mapData)
     }
     public func deepWallPaywallActionShowDisabled(_ model: DeepWallPaywallActionShowDisabledInfoModel) -> Void {
-        print("event:deepWallPaywallActionShowDisabled");
+        //print("event:deepWallPaywallActionShowDisabled");
         var mapData = [String: Any]()
         var modelMap = [String: Any]()
         modelMap["pageId"] = model.pageId
@@ -305,7 +329,7 @@ import Foundation
         sendData(state: mapData)
     }
     public func deepWallPaywallResponseFailure(_ model: DeepWallPaywallResponseFailedModel) -> Void {
-        print("event:deepWallPaywallResponseFailure");
+        //print("event:deepWallPaywallResponseFailure");
         var mapData = [String: Any]()
         var modelMap = [String: Any]()
         modelMap["errorCode"] = model.errorCode
@@ -315,7 +339,7 @@ import Foundation
         sendData(state: mapData)
     }
     public func deepWallPaywallPurchasingProduct(_ model: DeepWallPaywallPurchasingProduct) -> Void {
-        print("event:deepWallPaywallPurchasingProduct");
+        //print("event:deepWallPaywallPurchasingProduct");
         var mapData = [String: Any]()
         var modelMap = [String: Any]()
         modelMap["productCode"] = model.productCode
@@ -324,7 +348,7 @@ import Foundation
         sendData(state: mapData)
     }
     public func deepWallPaywallPurchaseSuccess(_ model:  DeepWallValidateReceiptResult) -> Void {
-        print("event:deepWallPaywallPurchaseSuccess");
+        //print("event:deepWallPaywallPurchaseSuccess");
         var mapData = [String: Any]()
         var modelMap = [String: Any]()
         modelMap["type"] = model.type.rawValue
@@ -334,7 +358,7 @@ import Foundation
         sendData(state: mapData)
     }
     public func deepWallPaywallPurchaseFailed(_ model: DeepWallPurchaseFailedModel) -> Void {
-        print("event:deepWallPaywallPurchaseFailed");
+        //print("event:deepWallPaywallPurchaseFailed");
         var mapData = [String: Any]()
         var modelMap = [String: Any]()
         modelMap["productCode"] = model.productCode
@@ -346,14 +370,14 @@ import Foundation
         sendData(state: mapData)
     }
     public func deepWallPaywallRestoreSuccess() -> Void {
-        print("event:deepWallPaywallRestoreSuccess");
+        //print("event:deepWallPaywallRestoreSuccess");
         var map = [String: Any]()
         map["data"] =  ""
         map["event"] = "deepWallPaywallRestoreSuccess"
         sendData(state: map)
     }
     public func deepWallPaywallRestoreFailed(_ model: DeepWallRestoreFailedModel) -> Void {
-        print("event:deepWallPaywallRestoreFailed");
+        //print("event:deepWallPaywallRestoreFailed");
         var mapData = [String: Any]()
         var modelMap = [String: Any]()
         modelMap["reason"] = model.reason.rawValue
@@ -365,7 +389,7 @@ import Foundation
         sendData(state: mapData)
     }
     public func deepWallPaywallExtraDataReceived(_ model: [AnyHashable : Any]) -> Void {
-        print("event:deepWallPaywallExtraDataReceived");
+        //print("event:deepWallPaywallExtraDataReceived");
         var mapData = [String: Any]()
         var modelMap = [String: Any]()
         modelMap["extraData"] = model as? [String: Any]
@@ -375,17 +399,18 @@ import Foundation
     }
 
     public func deepWallATTStatusChanged() {
-        print("event:deepWallATTStatusChanged");
+        //print("event:deepWallATTStatusChanged");
         var map = [String: Any]()
         map["data"] =  ""
         map["event"] = "deepWallATTStatusChanged"
         sendData(state: map)
     }
 
-    
+
     func sendData(state: Dictionary<String,Any>) {
         print(state)
         let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: state)
+        result?.setKeepCallbackAs(true)
         self.commandDelegate.send(result, callbackId: self.eventsCallbackCommand?.callbackId)
     }
 

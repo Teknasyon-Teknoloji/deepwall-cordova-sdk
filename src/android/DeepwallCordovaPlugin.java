@@ -23,52 +23,62 @@ import android.util.Log;
  */
 public class DeepwallCordovaPlugin extends CordovaPlugin {
 
-    private CallbackContext callback;
+    private CallbackContext callback, eventCallback;
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        this.callback = callbackContext;
         if(action.equals("initialize")) {
+            this.callback = callbackContext;
             this.initialize(args.getString(0), args.getInt(1));
             return true;
         }
         else if(action.equals("observeEvents")) {
+            this.eventCallback = callbackContext;
             this.observeEvents();
             return true;
         }
         else if(action.equals("setUserProperties")) {
+            this.callback = callbackContext;
             this.setUserProperties(args.getString(0), args.getString(1), args.getString(2), args.getInt(3));
             return true;
         }
         else if(action.equals("requestPaywall")) {
+            this.callback = callbackContext;
             JSONObject extra = new JSONObject(args.getString(1));
             this.requestPaywall(args.getString(0), extra);
             return true;
         }
         else if(action.equals("updateUserProperties")) {
+            this.callback = callbackContext;
             this.updateUserProperties(args.getString(0), args.getString(1), args.getInt(2), args.getJSONObject(3));
             return true;
         }
         else if(action.equals("closePaywall")) {
+            this.callback = callbackContext;
             this.closePayWall();
             return true;
         }
         else if(action.equals("hidePaywallLoadingIndicator")) {
+            this.callback = callbackContext;
             this.hidePaywallLoadingIndicator();
             return true;
         }
         else if(action.equals("validateReceipt")) {
+            this.callback = callbackContext;
             this.validateReceipt(args.getInt(0));
             return true;
         }
         else if(action.equals("consumeProduct")) {
+            this.callback = callbackContext;
             this.consumeProduct(args.getString(0));
             return true;
         }
         else if(action.equals("setProductUpgradePolicy")) {
+            this.callback = callbackContext;
             this.setProductUpgradePolicy(args.getInt(0), args.getInt(1));
             return true;
         }
         else if(action.equals("updateProductUpgradePolicy")) {
+            this.callback = callbackContext;
             this.updateProductUpgradePolicy(args.getInt(0), args.getInt(1));
             return true;
         }
@@ -80,9 +90,9 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
         if (apiKey != null && apiKey.length() > 0) {
             DeepWallEnvironment deepWallEnvironment = environment == 1? DeepWallEnvironment.SANDBOX : DeepWallEnvironment.PRODUCTION;
             DeepWall.INSTANCE.initDeepWallWith(this.cordova.getActivity().getApplication(), this.cordova.getActivity(), apiKey, deepWallEnvironment);
-            callback.success("Deepwall initialize success");
+            sendSuccess("Deepwall initialize success");
         } else {
-            callback.error("Expected non-empty string arguments.");
+            sendError("Expected non-empty string arguments.");
         }
     }
 
@@ -91,9 +101,9 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
         if (uuid != null && country != null && language != null) {
             DeepWallEnvironmentStyle theme = (environmentStyle == 0)? DeepWallEnvironmentStyle.LIGHT : DeepWallEnvironmentStyle.DARK;
             DeepWall.INSTANCE.setUserProperties(uuid, country, language, this::success, theme);
-            callback.success("Deepwall setUserProperties success");
+            sendSuccess("Deepwall setUserProperties success");
         } else {
-            callback.error("Expected non-empty string arguments.");
+            sendError("Expected non-empty string arguments.");
         }
     }
 
@@ -120,9 +130,9 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
                 }
             }
             DeepWall.INSTANCE.showPaywall(this.cordova.getActivity(), actionKey, bundle, this::error);
-            callback.success("Deepwall requestPaywall success");
+            sendSuccess("Deepwall requestPaywall success");
         } else {
-            callback.error("Expected non-empty string arguments.");
+            sendError("Expected non-empty string arguments.");
         }
     }
 
@@ -139,20 +149,20 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
         if (country != null && language != null) {
             DeepWallEnvironmentStyle theme = (environmentStyle == 0)? DeepWallEnvironmentStyle.LIGHT : DeepWallEnvironmentStyle.DARK;
             DeepWall.INSTANCE.updateUserProperties(country, language, theme);
-            callback.success("Deepwall updateUserProperties success");
+            sendSuccess("Deepwall updateUserProperties success");
         } else {
-            callback.error("Expected non-empty string arguments.");
+            sendError("Expected non-empty string arguments.");
         }
     }
 
     private void closePayWall(){
         DeepWall.INSTANCE.closePaywall();
-        callback.success("Deepwall closePaywall success");
+        sendSuccess("Deepwall closePaywall success");
     }
 
     private void hidePaywallLoadingIndicator(){
         //DeepWall.hidePaywallLoadingIndicator();
-        callback.success("Deepwall hidePaywallLoadingIndicator success");
+        sendSuccess("Deepwall hidePaywallLoadingIndicator success");
     }
 
     private void validateReceipt(int validationType){
@@ -164,15 +174,15 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
             default : validation = ValidationType.PURCHASE; break;
         }
         DeepWall.INSTANCE.validateReceipt(validation);
-        callback.success("Deepwall validateReceipt success");
+        sendSuccess("Deepwall validateReceipt success");
     }
 
     private void consumeProduct(String productId) {
         if (productId != null) {
             DeepWall.INSTANCE.consumeProduct(productId);
-            callback.success("Deepwall consumeProduct success");
+            sendSuccess("Deepwall consumeProduct success");
         } else {
-            callback.error("Expected non-empty string argument.");
+            sendError("Expected non-empty string argument.");
         }
     }
 
@@ -196,7 +206,7 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
             default : policy = PurchaseUpgradePolicy.DISABLE_ALL_POLICIES; break;
         }
         DeepWall.INSTANCE.setProductUpgradePolicy(proration, policy);
-        callback.success("Deepwall setProductUpgradePolicy success");
+        sendSuccess("Deepwall setProductUpgradePolicy success");
 
     }
 
@@ -220,7 +230,7 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
             default : policy = PurchaseUpgradePolicy.DISABLE_ALL_POLICIES; break;
         }
         DeepWall.INSTANCE.updateProductUpgradePolicy(proration, policy);
-        callback.success("Deepwall updateProductUpgradePolicy success");
+        sendSuccess("Deepwall updateProductUpgradePolicy success");
     }
 
     private final void observeEvents() {
@@ -379,10 +389,22 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
       }));
     }
 
+    private void sendSuccess(String data){
+        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, data);
+        pluginResult.setKeepCallback(true);
+        callback.sendPluginResult(pluginResult);
+    }
+
+    private void sendError(String data){
+        PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, data);
+        pluginResult.setKeepCallback(true);
+        callback.sendPluginResult(pluginResult);
+    }
+
     private void sendData(JSONObject map){
         PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, map);
         pluginResult.setKeepCallback(true);
-        callback.sendPluginResult(pluginResult);
+        eventCallback.sendPluginResult(pluginResult);
     }
 
     private final HashMap convertJsonToMap(JSONObject object) throws JSONException {

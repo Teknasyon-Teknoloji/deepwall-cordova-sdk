@@ -23,13 +23,12 @@
 
 ### Installation Notes
 - **IOS**
-    - Set minimum ios version to 10.0 in `platforms/ios/Podfile` like: `platform :ios, '10.0'`
+    - Set minimum ios version to 10.0 or higher in `platforms/ios/Podfile` like: `platform :ios, '10.0'`
     - Add `use_frameworks!` into `platforms/ios/Podfile` if not exists.
     - Run `$ cd platforms/ios && pod install`
 
 - **ANDROID**
-    - Set `minSdkVersion` to  21 in `platforms/android/app/build.gradle`
-    - Add `maven { url 'https://raw.githubusercontent.com/Teknasyon-Teknoloji/deepwall-android-sdk/master/' }` into `platforms/android/app/build.gradle` (Add into repositories under allprojects)
+    - Set `minSdkVersion` to 21 or higher.
 
 
 ---

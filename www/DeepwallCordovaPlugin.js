@@ -1,5 +1,15 @@
 var exec = require('cordova/exec');
+var cordova = require('cordova');
 var PLUGIN = "DeepwallCordovaPlugin";
+
+const fireEventSuccess = function(response){
+  cordova.fireWindowEvent("deepwallEventSuccess", response);
+}
+
+const fireEventError = function(response){
+  console.log('PLUGIN'+JSON.stringify(response));
+  cordova.fireWindowEvent("deepwallEventError", response);
+}
 
 exports.initialize = function (apiKey, environment, success, error){
     exec(success, error, PLUGIN, 'initialize', [apiKey, environment]);
