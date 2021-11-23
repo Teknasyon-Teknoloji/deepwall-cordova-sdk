@@ -5,5 +5,5 @@ repositories {
 }
 
 dependencies {
-    implementation 'deepwall:deepwall-core:2.3.0'
+    implementation 'deepwall:deepwall-core:2.4.0'
 }

@@ -2,7 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.2.0...main)
-
+- On iOS, `deepwall-core` version upgraded to version `2.4.0`.
+- On Android, `deepwall-core` version upgraded to version `2.4.0`.
+- Added new parameters into `setUserProperties` and `updateUserProperties` methods.
 
 ---
 
