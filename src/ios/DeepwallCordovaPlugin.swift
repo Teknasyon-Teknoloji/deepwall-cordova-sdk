@@ -54,7 +54,29 @@ import Foundation
             let uuid = myArgs[0] as? String
             let country = myArgs[1] as? String
             let language = myArgs[2] as? String
-            let properties = DeepWallUserProperties(uuid: uuid!, country: country!, language: language!)
+            let environmentStyleValue = myArgs[3] as? Int
+            let debugAdvertiseAttributions = myArgs[4] as? [String: String]
+            let phoneNumber = myArgs[5] as? String
+            let emailAddress = myArgs[6] as? String
+            let firstName = myArgs[7] as? String
+            let lastName = myArgs[8] as? String
+
+            let environmentStyle: DeepWallEnvironmentStyle
+
+            if environmentStyleValue == 0 {
+              environmentStyle = .light
+            } else if environmentStyleValue == 1 {
+              environmentStyle = .dark
+            } else {
+              environmentStyle = .automatic
+            }
+
+            let properties = DeepWallUserProperties(uuid: uuid!, country: country!, language: language!, environmentStyle: environmentStyle, debugAdvertiseAttributions: debugAdvertiseAttributions)
+            properties.phoneNumber = phoneNumber
+            properties.emailAddress = emailAddress
+            properties.firstName = firstName
+            properties.lastName = lastName
+
             DeepWall.shared.setUserProperties(properties)
             let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall setUserProperties success")
             result?.setKeepCallbackAs(true)
@@ -141,6 +163,22 @@ import Foundation
             let debugAdvertiseAttributions = myArgs[3]
             let theme: DeepWallEnvironmentStyle = (environmentStyle == 0) ? .light : .dark
             DeepWall.shared.updateUserProperties(country:country, language:language, environmentStyle:theme,debugAdvertiseAttributions:debugAdvertiseAttributions as? [String : String])
+
+            var userProperties = DeepWall.shared.userProperties
+
+            if let phoneNumber = myArgs[4] as? String {
+              userProperties?.phoneNumber = phoneNumber
+            }
+            let emailAddress = myArgs[5] as? String{
+              userProperties?.phoneNumber = phoneNumber
+            }
+            let firstName = myArgs[6] as? String{
+              userProperties?.phoneNumber = phoneNumber
+            }
+            let lastName = myArgs[7] as? String{
+              userProperties?.lastName = lastName
+            }
+
             let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall updateUserProperties success")
             result?.setKeepCallbackAs(true)
             self.commandDelegate.send(result, callbackId: command.callbackId)
