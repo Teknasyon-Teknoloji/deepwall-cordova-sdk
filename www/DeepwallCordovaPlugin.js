@@ -19,7 +19,21 @@ exports.observeEvents = function(success, error){
     exec(success, error, PLUGIN, 'observeEvents', []);
 };
 
-exports.setUserProperties = function(uuid, country, language, environmentStyle = EnvironmentStyle.LIGHT, success, error){
+exports.setUserProperties = function(
+  uuid,
+  country,
+  language,
+  environmentStyle = EnvironmentStyle.LIGHT,
+  success,
+  error,
+
+  // adding new params
+  debugAdvertiseAttributions = null,
+  phoneNumber = null,
+  emailAddress = null,
+  firstName = null,
+  lastName = null
+){
     if (uuid.isEmpty) {
         throw new DeepwallException(ErrorCodes.USER_PROPERTIES_COUNTRY_REQUIRED);
     }
@@ -29,7 +43,18 @@ exports.setUserProperties = function(uuid, country, language, environmentStyle =
     if (language.isEmpty) {
         throw new DeepwallException(ErrorCodes.USER_PROPERTIES_LANGUAGE_REQUIRED);
     }
-    exec(success, error, PLUGIN, 'setUserProperties', [uuid, country, language, environmentStyle]);
+
+    exec(success, error, PLUGIN, 'setUserProperties', [
+      uuid,
+      country,
+      language,
+      environmentStyle,
+      debugAdvertiseAttributions,
+      phoneNumber,
+      emailAddress,
+      firstName,
+      lastName,
+    ]);
 };
 
 exports.requestPaywall = function(actionKey, extraData = {}, success, error){
@@ -44,8 +69,28 @@ exports.sendExtraDataToPaywall = function(extraData = {}, success, error){
   exec(success, error, PLUGIN, 'sendExtraDataToPaywall', [JSON.stringify(extraData)]);
 };
 
-exports.updateUserProperties = function(country, language, environmentStyle = EnvironmentStyle.LIGHT, debugAdvertiseAttributions = null, success, error){
-    exec(success, error, PLUGIN, 'updateUserProperties', [country, language, environmentStyle, debugAdvertiseAttributions]);
+exports.updateUserProperties = function(
+  country,
+  language,
+  environmentStyle = EnvironmentStyle.LIGHT,
+  debugAdvertiseAttributions = null,
+  success,
+  error,
+  phoneNumber = null,
+  emailAddress = null,
+  firstName = null,
+  lastName = null
+){
+    exec(success, error, PLUGIN, 'updateUserProperties', [
+      country,
+      language,
+      environmentStyle,
+      debugAdvertiseAttributions,
+      phoneNumber,
+      emailAddress,
+      firstName,
+      lastName,
+    ]);
 };
 
 exports.closePaywall = function(success, error){

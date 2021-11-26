@@ -38,7 +38,18 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
         }
         else if(action.equals("setUserProperties")) {
             this.callback = callbackContext;
-            this.setUserProperties(args.getString(0), args.getString(1), args.getString(2), args.getInt(3));
+            this.setUserProperties(
+              args.getString(0), // uuid
+              args.getString(1), // country
+              args.getString(2), // language
+              args.getInt(3), // environmentStyle
+              args.getString(4), // debugAdvertiseAttributions
+              args.getString(5), // phoneNumber
+              args.getString(6), // emailAddress
+              args.getString(7), // firstName
+              args.getString(8) // lastName
+            );
+
             return true;
         }
         else if(action.equals("requestPaywall")) {
@@ -49,7 +60,16 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
         }
         else if(action.equals("updateUserProperties")) {
             this.callback = callbackContext;
-            this.updateUserProperties(args.getString(0), args.getString(1), args.getInt(2), args.getJSONObject(3));
+            this.updateUserProperties(
+                args.getString(0), // country
+                args.getString(1), // language
+                args.getInt(2), // environmentStyle
+                args.getString(3), // debugAdvertiseAttributions
+                args.getString(4), // phoneNumber
+                args.getString(5), // emailAddress
+                args.getString(6), // firstName
+                args.getString(7) // lastName
+            );
             return true;
         }
         else if(action.equals("closePaywall")) {
@@ -97,10 +117,43 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
     }
 
 
-    private void setUserProperties(String uuid, String country, String language, int environmentStyle){
+    private void setUserProperties(
+        String uuid,
+        String country,
+        String language,
+        int environmentStyle,
+        String debugAdvertiseAttributions,
+        String phoneNumber,
+        String emailAddress,
+        String firstName,
+        String lastName
+    ) {
+        if (phoneNumber == null) {
+            phoneNumber = "";
+        }
+        if (emailAddress == null) {
+            emailAddress = "";
+        }
+        if (firstName == null) {
+            firstName = "";
+        }
+        if (lastName == null) {
+            lastName = "";
+        }
+
         if (uuid != null && country != null && language != null) {
-            DeepWallEnvironmentStyle theme = (environmentStyle == 0)? DeepWallEnvironmentStyle.LIGHT : DeepWallEnvironmentStyle.DARK;
-            DeepWall.INSTANCE.setUserProperties(uuid, country, language, this::success, theme);
+            DeepWallEnvironmentStyle theme = (environmentStyle == 0) ? DeepWallEnvironmentStyle.LIGHT : DeepWallEnvironmentStyle.DARK;
+            DeepWall.INSTANCE.setUserProperties(
+                uuid,
+                country,
+                language,
+                phoneNumber,
+                emailAddress,
+                firstName,
+                lastName,
+                this::success,
+                theme
+            );
             sendSuccess("Deepwall setUserProperties success");
         } else {
             sendError("Expected non-empty string arguments.");
@@ -108,6 +161,7 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
     }
 
     private kotlin.Unit success(){return null;}
+
     private void requestPaywall(String actionKey, JSONObject extraData) throws JSONException {
         if (actionKey != null) {
             Bundle bundle = new Bundle();
@@ -145,10 +199,41 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
     }
 
     private kotlin.Unit error(String s){return null;}
-    private void updateUserProperties(String country, String language, int environmentStyle, JSONObject debugAdvertiseAttributions){
+
+    private void updateUserProperties(
+        String country,
+        String language,
+        int environmentStyle,
+        String debugAdvertiseAttributions,
+        String phoneNumber,
+        String emailAddress,
+        String firstName,
+        String lastName
+    ){
+        if (phoneNumber == null) {
+            phoneNumber = "";
+        }
+        if (emailAddress == null) {
+            emailAddress = "";
+        }
+        if (firstName == null) {
+            firstName = "";
+        }
+        if (lastName == null) {
+            lastName = "";
+        }
+
         if (country != null && language != null) {
             DeepWallEnvironmentStyle theme = (environmentStyle == 0)? DeepWallEnvironmentStyle.LIGHT : DeepWallEnvironmentStyle.DARK;
-            DeepWall.INSTANCE.updateUserProperties(country, language, theme);
+            DeepWall.INSTANCE.updateUserProperties(
+                country,
+                language,
+                theme,
+                phoneNumber,
+                emailAddress,
+                firstName,
+                lastName
+            );
             sendSuccess("Deepwall updateUserProperties success");
         } else {
             sendError("Expected non-empty string arguments.");
