@@ -50,10 +50,10 @@ import Foundation
             self.commandDelegate.send(result, callbackId: command.callbackId)
             return ()
         }
-        if let myArgs = args as? [Any]{
-            let uuid = myArgs[0] as? String
-            let country = myArgs[1] as? String
-            let language = myArgs[2] as? String
+        if let myArgs = args as? [Any] {
+            let uuid = myArgs[0] as! String
+            let country = myArgs[1] as! String
+            let language = myArgs[2] as! String
             let environmentStyleValue = myArgs[3] as? Int
             let debugAdvertiseAttributions = myArgs[4] as? [String: String]
             let phoneNumber = myArgs[5] as? String
@@ -71,7 +71,7 @@ import Foundation
               environmentStyle = .automatic
             }
 
-            let properties = DeepWallUserProperties(uuid: uuid!, country: country!, language: language!, environmentStyle: environmentStyle, debugAdvertiseAttributions: debugAdvertiseAttributions)
+            let properties = DeepWallUserProperties(uuid: uuid, country: country, language: language, environmentStyle: environmentStyle, debugAdvertiseAttributions: debugAdvertiseAttributions)
             properties.phoneNumber = phoneNumber
             properties.emailAddress = emailAddress
             properties.firstName = firstName
@@ -164,19 +164,19 @@ import Foundation
             let theme: DeepWallEnvironmentStyle = (environmentStyle == 0) ? .light : .dark
             DeepWall.shared.updateUserProperties(country:country, language:language, environmentStyle:theme,debugAdvertiseAttributions:debugAdvertiseAttributions as? [String : String])
 
-            var userProperties = DeepWall.shared.userProperties
+            var userProperties = DeepWall.shared.userProperties()
 
             if let phoneNumber = myArgs[4] as? String {
-              userProperties?.phoneNumber = phoneNumber
+              userProperties.phoneNumber = phoneNumber
             }
-            let emailAddress = myArgs[5] as? String{
-              userProperties?.phoneNumber = phoneNumber
+            if let emailAddress = myArgs[5] as? String{
+              userProperties.emailAddress = emailAddress
             }
-            let firstName = myArgs[6] as? String{
-              userProperties?.phoneNumber = phoneNumber
+            if let firstName = myArgs[6] as? String{
+              userProperties.firstName = firstName
             }
-            let lastName = myArgs[7] as? String{
-              userProperties?.lastName = lastName
+            if let lastName = myArgs[7] as? String{
+              userProperties.lastName = lastName
             }
 
             let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DeepWall updateUserProperties success")
