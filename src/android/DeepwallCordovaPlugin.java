@@ -64,7 +64,7 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
                 args.getString(0), // country
                 args.getString(1), // language
                 args.getInt(2), // environmentStyle
-                args.getJSONObject(3), // debugAdvertiseAttributions
+                args.getString(3), // debugAdvertiseAttributions
                 args.getString(4), // phoneNumber
                 args.getString(5), // emailAddress
                 args.getString(6), // firstName
@@ -204,7 +204,7 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
         String country,
         String language,
         int environmentStyle,
-        JSONObject debugAdvertiseAttributions,
+        String debugAdvertiseAttributions,
         String phoneNumber,
         String emailAddress,
         String firstName,
