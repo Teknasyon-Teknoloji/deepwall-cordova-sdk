@@ -19,6 +19,10 @@ exports.observeEvents = function(success, error){
     exec(success, error, PLUGIN, 'observeEvents', []);
 };
 
+exports.removeEventObserver = function(success, error){
+    exec(success, error, PLUGIN, 'removeEventObserver', []);
+};
+
 exports.setUserProperties = function(
   uuid,
   country,
