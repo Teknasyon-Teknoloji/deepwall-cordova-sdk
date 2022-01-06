@@ -42,6 +42,13 @@ import Foundation
         DeepWall.shared.observeEvents(for: self)
     }
 
+    @objc(removeEventObserver:)
+    func removeEventObserver(command : CDVInvokedUrlCommand)
+    {
+        self.eventsCallbackCommand = nil
+        DeepWall.shared.removeObserver(for: self)
+    }
+
     @objc(setUserProperties:)
     func setUserProperties(command : CDVInvokedUrlCommand)
     {

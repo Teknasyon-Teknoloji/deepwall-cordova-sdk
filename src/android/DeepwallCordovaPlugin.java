@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import deepwall.core.DeepWall;
 import deepwall.core.models.*;
 import java.util.*;
-import android.util.Log;
+import io.reactivex.disposables.Disposable;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -24,6 +24,8 @@ import android.util.Log;
 public class DeepwallCordovaPlugin extends CordovaPlugin {
 
     private CallbackContext callback, eventCallback;
+    private Disposable disposable;
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if(action.equals("initialize")) {
@@ -34,6 +36,15 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
         else if(action.equals("observeEvents")) {
             this.eventCallback = callbackContext;
             this.observeEvents();
+            return true;
+        }
+        else if(action.equals("removeEventObserver")) {
+            this.eventCallback = null;
+
+            if (disposable != null) {
+                disposable.dispose();
+            }
+
             return true;
         }
         else if(action.equals("setUserProperties")) {
@@ -319,7 +330,7 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
     }
 
     private final void observeEvents() {
-      EventBus.INSTANCE.subscribe((new Consumer() {
+        disposable = EventBus.INSTANCE.subscribe((new Consumer() {
          // $FF: synthetic method
          // $FF: bridge method
          public void accept(Object var1) throws Exception {
@@ -489,7 +500,9 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
     private void sendData(JSONObject map){
         PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, map);
         pluginResult.setKeepCallback(true);
-        eventCallback.sendPluginResult(pluginResult);
+        if (eventCallback != null) {
+            eventCallback.sendPluginResult(pluginResult);
+        }
     }
 
     private final HashMap convertJsonToMap(JSONObject object) throws JSONException {
