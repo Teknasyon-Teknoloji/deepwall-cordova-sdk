@@ -1,13 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.3.0...main)
+## [Unreleased](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.3.1...main)
+
+
+---
+
+
+## [1.3.1 (2022-01-06)](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.3.0...1.3.1)
 ### Changed
 - On iOS, `deepwall-core` version upgraded to version `2.4.1`.
 - On Android, `deepwall-core` version upgraded to version `2.4.1`.
 
-
----
+## Added
+- Added `removeEventObserver` method.
 
 
 ## [1.3.0 (2021-11-26)](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.2.0...1.3.0)
