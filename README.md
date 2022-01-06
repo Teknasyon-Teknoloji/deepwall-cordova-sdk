@@ -112,6 +112,11 @@ cordova.DeepwallCordovaPlugin.observeEvents(function(response){
 })
 ```
 
+### Remove Event Observer
+- You may remove event observers. (if you are reloading page you need to call this before location.reload())
+```javascript
+cordova.DeepwallCordovaPlugin.removeEventObserver()
+```
 
 ### iOS Only Methods
 
@@ -158,7 +163,7 @@ cordova.DeepwallCordovaPlugin.consumeProduct('consumable_product_id', function(r
 ```javascript
 cordova.DeepwallCordovaPlugin.setProductUpgradePolicy(
     ProrationTypes.IMMEDIATE_WITHOUT_PRORATION,
-    PurchaseUpgradePolicy.ENABLE_ALL_POLICIES, 
+    PurchaseUpgradePolicy.ENABLE_ALL_POLICIES,
     function(response){
       console.log(response);
     }, function(error){
