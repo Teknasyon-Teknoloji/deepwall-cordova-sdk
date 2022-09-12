@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/Teknasyon-Teknoloji/deepwall-cordova-sdk/compare/1.3.1...main)
+### Changed
+ - On Android, `deepwall-core` version upgraded to version `2.6.2`
+ - On iOS, `deepwall-core` version upgraded to version `2.4.2`
 
 
 ---

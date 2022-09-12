@@ -120,7 +120,12 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
     private void initialize(String apiKey, int environment){
         if (apiKey != null && apiKey.length() > 0) {
             DeepWallEnvironment deepWallEnvironment = environment == 1? DeepWallEnvironment.SANDBOX : DeepWallEnvironment.PRODUCTION;
-            DeepWall.INSTANCE.initDeepWallWith(this.cordova.getActivity().getApplication(), this.cordova.getActivity(), apiKey, deepWallEnvironment);
+            DeepWall.INSTANCE.initDeepWallWith(
+                Platform.GOOGLE,
+                this.cordova.getActivity(),
+                apiKey,
+                deepWallEnvironment
+            );
             sendSuccess("Deepwall initialize success");
         } else {
             sendError("Expected non-empty string arguments.");
@@ -194,7 +199,7 @@ public class DeepwallCordovaPlugin extends CordovaPlugin {
                     }
                 }
             }
-            DeepWall.INSTANCE.showPaywall(this.cordova.getActivity(), actionKey, bundle, this::error);
+            DeepWall.INSTANCE.showPaywall(this.cordova.getActivity(), actionKey, bundle, this::error, PaywallOrientation.PORTRAIT);
             sendSuccess("Deepwall requestPaywall success");
         } else {
             sendError("Expected non-empty string arguments.");

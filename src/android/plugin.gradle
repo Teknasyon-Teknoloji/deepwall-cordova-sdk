@@ -2,8 +2,10 @@ repositories {
     google()
     jcenter()
     maven { url 'https://raw.githubusercontent.com/Teknasyon-Teknoloji/deepwall-android-sdk/master/' }
+    maven { url 'https://developer.huawei.com/repo/' }
 }
 
 dependencies {
-    implementation 'deepwall:deepwall-core:2.4.1'
+    implementation('deepwall:deepwall-core:2.6.2')
+    implementation('deepwall:deepwall-google:2.6.2')
 }
